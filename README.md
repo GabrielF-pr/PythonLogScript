@@ -1,1 +1,1 @@
-# Simple python parser log script
+# Simple python log parser script
