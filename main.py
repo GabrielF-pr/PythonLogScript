@@ -13,6 +13,10 @@ def main():
     log_file = input("Enter the path to the log file: ")
     keyword = input("Enter the keyword to search for: ")    
     
+    if not log_file or not keyword:
+        print("Log file path and keyword cannot be empty.")
+        return
+
     if os.path.exists(log_file):
         matches = parse_logs(log_file, keyword)
         print(f"Found {len(matches)} matching lines:")
