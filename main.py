@@ -5,7 +5,7 @@ def parse_logs(log_file, keyword):
     results = []
     with open(log_file, 'r') as file:
         for line in file:
-            if re.search(keyword, line):
+            if re.search(keyword, line, re.IGNORECASE):
                 results.append(line.strip())
     return results
 
@@ -18,7 +18,7 @@ def main():
         print(f"Found {len(matches)} matching lines:")
         for match in matches:
             for word in match.split():
-                if word in keyword.split():
+                if word in keyword.lower().split():
                     print("\033[91m {}\033[00m".format(word), end=" ")
                 else:
                     print(word, end=" ")
