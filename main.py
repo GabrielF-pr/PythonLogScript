@@ -18,7 +18,7 @@ def main():
         print(f"Found {len(matches)} matching lines:")
         for match in matches:
             for word in match.split():
-                if word in keyword.lower().split():
+                if word.lower() in keyword.lower().split():
                     print("\033[91m {}\033[00m".format(word), end=" ")
                 else:
                     print(word, end=" ")
