@@ -2,13 +2,10 @@ import os
 import re
 
 def parse_logs(log_file, keyword):
-    results = []
     with open(log_file, 'r') as file:
         for line in file:
             if re.search(rf'\b{re.escape(keyword)}\b', line, re.IGNORECASE):
-                results.append(line.strip())
-    return results
-
+                yield line.strip()
 def main():
     log_file = input("Enter the path to the log file: ")
     keyword = input("Enter the keyword to search for: ")    
@@ -19,7 +16,6 @@ def main():
 
     if os.path.exists(log_file):
         matches = parse_logs(log_file, keyword)
-        print(f"Found {len(matches)} matching lines:")
         for match in matches:
             for word in match.split():
                 if word.lower() in keyword.lower().split():
