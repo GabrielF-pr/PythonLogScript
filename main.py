@@ -5,7 +5,7 @@ def parse_logs(log_file, keyword):
     results = []
     with open(log_file, 'r') as file:
         for line in file:
-            if re.search(keyword, line, re.IGNORECASE):
+            if re.search(rf'\b{re.escape(keyword)}\b', line, re.IGNORECASE):
                 results.append(line.strip())
     return results
 
