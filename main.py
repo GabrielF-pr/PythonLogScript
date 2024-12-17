@@ -5,18 +5,13 @@ def parse_logs(log_file, keyword):
     with open(log_file, 'r') as file:
         for line in file:
             if re.search(rf'\b{re.escape(keyword)}\b', line, re.IGNORECASE):
-                yield line.strip()
+                yield re.sub(rf"\b{keyword}\b", lambda m: f"\033[91m {m.group(0)}\033[00m", line)
 
 def save_to_file(matches, keyword):
     with open("matches.log", 'w') as file:
         for line_num, match in enumerate(matches, start=1):
-            file.write(f"\x1b[1;31m[Line {line_num}]\x1b[0m")
-            for word in match.split():
-                if word.lower() in keyword.lower().split():
-                    file.write(f"\033[91m {word}\033[00m")
-                else:
-                    file.write(f" {word} ")
-            file.write('\n')
+            file.write(f"\x1b[1;32m[Line {line_num}]\x1b[0m")
+            file.write(match)
 
 def main():
     log_file = input("Enter the path to the log file: ")
@@ -34,13 +29,8 @@ def main():
             return
 
         for line_num, match in enumerate(matches, start=1):
-            print(f"\x1b[1;31m[Line {line_num}]\x1b[0m", end="")
-            for word in match.split():
-                if word.lower() in keyword.lower().split():
-                    print("\033[91m {}\033[00m".format(word), end=" ")
-                else:
-                    print(word, end=" ")
-            print("")
+            print(f"\x1b[1;32m[Line {line_num}]\x1b[0m", end="")
+            print(match)
     else:
          print("Log file not found.")
 
