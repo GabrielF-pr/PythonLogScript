@@ -16,7 +16,8 @@ def main():
 
     if os.path.exists(log_file):
         matches = parse_logs(log_file, keyword)
-        for match in matches:
+        for line_num, match in enumerate(matches, start=1):
+            print(f"\x1b[1;31m[Line {line_num}]\x1b[0m", end="")
             for word in match.split():
                 if word.lower() in keyword.lower().split():
                     print("\033[91m {}\033[00m".format(word), end=" ")
