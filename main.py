@@ -22,6 +22,10 @@ def main():
         print("Log file path and keyword cannot be empty.")
         return
     
+    if not os.path.isfile(log_file):
+        print("Provided path is not a valid file.")
+        return
+    
     if os.path.exists(log_file):
         matches = parse_logs(log_file, keyword)
         if save_file == "yes":
