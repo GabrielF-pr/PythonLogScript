@@ -1,5 +1,6 @@
 import os
 import re
+import sys
 
 def parse_logs(log_file, keyword):
     with open(log_file, 'r') as file:
@@ -13,7 +14,15 @@ def save_to_file(matches, keyword):
             file.write(f"\x1b[1;32m[Line {line_num}]\x1b[0m")
             file.write(match)
 
+def print_help():
+    print("Provide a valid file and enter a keyword you would like to find within the file.")
+    print("Then, decide whether you want to save it to a file or print it to the screen.")
 def main():
+    
+    if sys.argv[1] == "--help":
+        print_help()
+        return
+
     log_file = input("Enter the path to the log file: ")
     keyword = input("Enter the keyword to search for: ")    
     save_file = input("Would you like to save the output into a file? (yes/no): ")
